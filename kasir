@@ -1,0 +1,26 @@
+# Proyek 1;Aplikasi Kasir Minimarket Sederhana
+
+print("===Selamat Datang di Toko IT Pemula ===")
+
+#1.Mengambil input harga dan jumlah barang dari pembeli
+nama_barang = input("Masukkan nama barang:")
+harga = int(input("Masukkan harga barang per satuan (Rp):"))
+jumlah = int(input("Masukkan jumlah barang yang dibeli:"))
+
+#2.Menghitung total harga dasar
+total_harga = harga * jumlah
+print(f"Total awal: Rp {total_harga}")
+
+#3.Logika Diskon: jika belanja lebih dari Rp 100.000, dapat diskon 10% 
+if total_harga > 100000:
+dison = total_harga * 0.1
+total_akhir = total_harga-diskon
+print(f"selamat! Anda dapat diskon 10% sebesar:Rp {int(diskon)}")
+
+else:
+total_akhir=total_harga
+print("Maaf,belum mencapai batas minimum untuk diskon.")
+
+#4.Menampilkan jumlah yang harus dibayar
+print(f"Total yang harus dibayar: Rp {int(total_akhir)}")
+print("=== Terima Kasih Telah Berbelanja ===")
