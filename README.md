@@ -1,25 +1,50 @@
-# 🛒 Aplikasi Kasir Digital Minimarket - Python & SQL
+# 🛒 Aplikasi Kasir Digital Minimarket
 
-Aplikasi kasir pintar berbasis teks yang dirancang khusus untuk membantu pencatatan transaksi minimarket secara digital, aman, dan permanen. Proyek ini dibuat sebagai portofolio awal pemahaman logika pemrograman backend.
+[![Python Version](https://shields.io)](https://python.org)
+[![Framework](https://shields.io)](https://palletsprojects.com)
+[![Database](https://shields.io)](https://sqlite.org)
 
-## ✨ Fitur Utama
-* **Sistem Keamanan Login**: Membatasi akses aplikasi hanya untuk staf admin toko resmi.
-* **Input Interaktif Bertingkat**: Mengambil data nama barang, harga, dan jumlah secara dinamis.
-* **Perulangan Transaksi (Looping)**: Kasir dapat memasukkan banyak barang sekaligus dalam satu nota hingga mengetik angka `0`.
-* **Diskon Otomatis**: Potongan harga otomatis 10% jika total belanjaan pelanggan melebihi Rp 100.000.
-* **Database SQL (SQLite3)**: Menyimpan riwayat data nota penjualan secara permanen dan aman meskipun aplikasi ditutup.
+Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu pencatatan transaksi minimarket secara digital, aman, dan permanen. Proyek ini dibuat sebagai portofolio awal pemahaman logika pemrograman dan integrasi database backend-frontend.
+
+## 🚀 Fitur Utama
+- **Sistem Autentikasi**: Login aman untuk kasir (`admin` / `rahasia`).
+- **Input Transaksi**: Menghitung total belanja dengan validasi input.
+- **Penyimpanan Permanen**: Terintegrasi langsung dengan database SQL (SQLite3).
+- **Auto Timestamp**: Pencatatan tanggal dan waktu transaksi secara otomatis dari server.
+
+## 📸 Tampilan Aplikasi
+
+| Halaman Login | Halaman Input Kasir |
+|---|---|
+| <img src="https://placeholder.com" width="400"> | <img src="https://placeholder.com" width="400"> |
+*(Tips: Ganti tautan placeholder di atas dengan screenshot asli aplikasi Anda)*
 
 ## 🛠️ Teknologi yang Digunakan
-* **Bahasa Pemrograman**: Python 3
-* **Database**: SQLite3 (Bawaan Python)
-* **Manajemen Versi**: Git & GitHub
-* **Sistem Operasi**: Linux (ChromeOS Environment)
+- **Backend:** Python 3 & Flask Framework
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Database:** SQLite3
 
-## 🚀 Cara Menjalankan Aplikasi
-1. Pastikan Python 3 sudah terinstal di komputer/laptop Anda.
-2. Buka terminal atau command prompt.
-3. Jalankan perintah berikut untuk memulai aplikasi gabungan:
+## 💻 Cara Menjalankan Proyek Di Lokal
+
+1. **Clone Repositori**
    ```bash
-   python3 aplikasi.py
+   git clone https://github.com
+   cd kasir-python-pemula
    ```
-4. Masukkan username `admin` dan password `rahasia`.
+
+2. **Install Dependensi**
+   Pastikan Flask sudah terinstal di komputer Anda:
+   ```bash
+   pip install flask
+   ```
+
+3. **Jalankan Server**
+   ```bash
+   python server.py
+   ```
+
+4. **Akses di Browser**
+   Buka browser Anda dan akses alamat: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+👨‍💻 *Dikembangkan oleh [Boy98-Ux](https://github.com) sebagai bagian dari proyek pembelajaran Python Backend Developer.*
