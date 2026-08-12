@@ -1,30 +1,9 @@
-# 🛒 Aplikasi Kasir Digital Minimarket
+### 🛠️ Teknologi yang Digunakan
+* **Backend:** Python 3 & Flask Framework
+* **Frontend:** HTML5, CSS3, JavaScript
+* **Database:** MySQL (MariaDB)
 
-[![Python Version](https://shields.io)](https://python.org)
-[![Framework](https://shields.io)](https://palletsprojects.com)
-[![Database](https://shields.io)](https://sqlite.org)
-
-Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu pencatatan transaksi minimarket secara digital, aman, dan permanen. Proyek ini dibuat sebagai portofolio awal pemahaman logika pemrograman dan integrasi database backend-frontend.
-
-## 🚀 Fitur Utama
-- **Sistem Autentikasi**: Login aman untuk kasir (`admin` / `rahasia`).
-- **Input Transaksi**: Menghitung total belanja dengan validasi input.
-- **Penyimpanan Permanen**: Terintegrasi langsung dengan database SQL (SQLite3).
-- **Auto Timestamp**: Pencatatan tanggal dan waktu transaksi secara otomatis dari server.
-
-## 📸 Tampilan Aplikasi
-
-| Halaman Login | Halaman Input Kasir |
-|---|---|
-| <img src="https://placeholder.com" width="400"> | <img src="https://placeholder.com" width="400"> |
-*(Tips: Ganti tautan placeholder di atas dengan screenshot asli aplikasi Anda)*
-
-## 🛠️ Teknologi yang Digunakan
-- **Backend:** Python 3 & Flask Framework
-- **Frontend:** HTML5, CSS3, JavaScript
-- **Database:** SQLite3
-
-## 💻 Cara Menjalankan Proyek Di Lokal
+### 💻 Cara Menjalankan Proyek Di Lokal
 
 1. **Clone Repositori**
    ```bash
@@ -33,18 +12,31 @@ Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu pencatat
    ```
 
 2. **Install Dependensi**
-   Pastikan Flask sudah terinstal di komputer Anda:
+   Pastikan Flask dan MySQL Connector sudah terinstal:
    ```bash
-   pip install flask
+   pip install flask mysql-connector-python
    ```
 
-3. **Jalankan Server**
-   ```bash
-   python server.py
+3. **Setup Database MySQL**
+   Masuk ke database MySQL/MariaDB Anda, lalu buat database dan tabel dengan perintah SQL berikut:
+   ```sql
+   CREATE DATABASE toko_it;
+   USE toko_it;
+
+   CREATE TABLE barang (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       nama_barang VARCHAR(100) NOT NULL,
+       harga DECIMAL(10,2) NOT NULL,
+       stok INT NOT NULL
+   );
+
+   INSERT INTO barang (nama_barang, harga, stok) VALUES 
+   ('Mouse Logitech G Pro', 1200000, 10),
+   ('Keyboard Mechanical Rexus', 450000, 15),
+   ('Monitor ASUS 24 Inch', 1800000, 5);
    ```
 
-4. **Akses di Browser**
-   Buka browser Anda dan akses alamat: [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
----
-👨‍💻 *Dikembangkan oleh [Boy98-Ux](https://github.com) sebagai bagian dari proyek pembelajaran Python Backend Developer.*
+4. **Jalankan Server Aplikasi**
+   ```bash
+   python3 server.py
+   ```
