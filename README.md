@@ -1,7 +1,13 @@
+# 🛒 Aplikasi Kasir Digital Minimarket
+
+Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu mengelola transaksi toko secara digital, aman, dan permanen. Proyek ini dibuat sebagai portofolio pengembang.
+
 ### 🛠️ Teknologi yang Digunakan
 * **Backend:** Python 3 & Flask Framework
 * **Frontend:** HTML5, CSS3, JavaScript
 * **Database:** MySQL (MariaDB)
+
+---
 
 ### 💻 Cara Menjalankan Proyek Di Lokal
 
@@ -12,7 +18,7 @@
    ```
 
 2. **Install Dependensi**
-   Pastikan Flask dan MySQL Connector sudah terinstal:
+   Pastikan Flask dan MySQL Connector sudah terinstal di komputer Anda:
    ```bash
    pip install flask mysql-connector-python
    ```
