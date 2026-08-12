@@ -18,13 +18,13 @@ cd kasir-python-pemula
 ```
 
 2. **Install Dependensi**
-   Pastikan Flask dan MySQL Connector sudah terinstal di komputer Anda:
+Pastikan Flask dan MySQL Connector sudah terinstal di komputer Anda:
 ```bash
 pip install flask mysql-connector-python
 ```
 
 3. **Setup Database MySQL**
-   Masuk ke database MySQL/MariaDB Anda, lalu buat database dan tabel dengan perintah SQL berikut:
+Masuk ke database MySQL/MariaDB Anda, lalu buat database dan tabel dengan perintah SQL berikut:
 ```sql
 CREATE DATABASE toko_it;
 USE toko_it;
