@@ -12,7 +12,8 @@ Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu mengelol
 ### 💻 Cara Menjalankan Proyek Di Lokal
 
 1. **Clone Repositori**
-   ```bash
+   ```
+   bash
    git clone https://github.com
    cd kasir-python-pemula
    ```
