@@ -12,11 +12,9 @@ Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu mengelol
 ### 💻 Cara Menjalankan Proyek Di Lokal
 
 1. **Clone Repositori**
-   ```
-   bash
+```bash
    git clone https://github.com
-   cd kasir-python-pemula
-   ```
+   cd kasir-python-pemula```
 
 2. **Install Dependensi**
    Pastikan Flask dan MySQL Connector sudah terinstal di komputer Anda:
