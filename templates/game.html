@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Perang Online 2D</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            background-color: #334e33; /* Warna area permainan */
+            border: 4px solid #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Area Tempat Game Digambar -->
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <script>
+        // Konfigurasi Canvas dan Context 2D
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // ==========================================
+        // 1. DATA PEMAIN, PELURU, DAN MUSUH
+        // ==========================================
+        let player = {
+            x: 400,
+            y: 300,
+            radius: 15,
+            speed: 4,
+            color: 'cyan'
+        };
+
+        let bullets = [];
+        
+        let enemies = [
+            { x: 100, y: 100, radius: 20, hp: 100, maxHp: 100, speed: 1.5, color: 'red' },
+            { x: 700, y: 150, radius: 20, hp: 100, maxHp: 100, speed: 1.2, color: 'red' },
+            { x: 400, y: 80, radius: 20, hp: 100, maxHp: 100, speed: 1.0, color: 'red' }
+        ];
+
+        // Sistem Kontrol Input Keyboard
+        let keys = {};
+        window.addEventListener("keydown", (e) => keys[e.key] = true);
+        window.addEventListener("keyup", (e) => keys[e.key] = false);
+
+        // Sistem Tembak Peluru dengan Klik Mouse
+        window.addEventListener("click", (e) => {
+            // Menghitung sudut tembakan ke arah kursor mouse
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+
+            bullets.push({
+                x: player.x,
+                y: player.y,
+                radius: 4,
+                speed: 7,
+                vx: Math.cos(angle),
+                vy: Math.sin(angle)
+            });
+        });
+
+        // ==========================================
+        // 2. FUNGSI LOGIKA & PERGERAKAN (UPDATE)
+        // ==========================================
+        function update() {
+            // Pergerakan Pemain (WASD atau Arah)
+            if (keys["w"] || keys["ArrowUp"]) player.y -= player.speed;
+            if (keys["s"] || keys["ArrowDown"]) player.y += player.speed;
+            if (keys["a"] || keys["ArrowLeft"]) player.x -= player.speed;
+            if (keys["d"] || keys["ArrowRight"]) player.x += player.speed;
+
+            // Pergerakan Peluru
+            bullets.forEach((bullet, index) => {
+                bullet.x += bullet.vx * bullet.speed;
+                bullet.y += bullet.vy * bullet.speed;
+
+                // Hapus peluru jika keluar batas canvas agar tidak lemot
+                if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
+                    bullets.splice(index, 1);
+                }
+            });
+
+            // Cek Tabrakan Peluru dengan Musuh (Collision)
+            bullets.forEach((bullet, bIndex) => {
+                enemies.forEach((enemy, eIndex) => {
+                    let dist = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+                    if (dist < bullet.radius + enemy.radius) {
+                        enemy.hp -= 25; // Kurangi darah musuh saat kena peluru
+                        bullets.splice(bIndex, 1); // Hapus peluru
+
+                        // Jika HP musuh habis, hapus musuh dari game
+                        if (enemy.hp <= 0) {
+                            enemies.splice(eIndex, 1);
+                        }
+                    }
+                });
+            });
+        }
+
+        function updateEnemies() {
+    enemies.forEach(enemy => {
+        // AI Musuh otomatis mengejar Pemain
+        if (enemy.x < player.x) enemy.x += enemy.speed;
+        if (enemy.x > player.x) enemy.x -= enemy.speed;
+        if (enemy.y < player.y) enemy.y += enemy.speed;
+        if (enemy.y > player.y) enemy.y -= enemy.speed;
+
+        // BAtas Dinding Kiri & Kanan (Agar musuh tidak keluar canvas)
+        if (enemy.x - enemy.radius < 0) enemy.x = enemy.radius;
+        if (enemy.x + enemy.radius > canvas.width) enemy.x = canvas.width - enemy.radius;
+
+        // Batas Dinding Atas & Bawah (Agar musuh tidak keluar canvas)
+        if (enemy.y - enemy.radius < 0) enemy.y = enemy.radius;
+        if (enemy.y + enemy.radius > canvas.height) enemy.y = canvas.height - enemy.radius;
+    });
+}
+
+        // ==========================================
+        // 3. FUNGSI RENDERING VISUAL (DRAW)
+        // ==========================================
+        function draw() {
+            // Membersihkan layar canvas sebelum menggambar ulang frame baru
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Gambar Semua Peluru yang Aktif
+            bullets.forEach(bullet => {
+                ctx.beginPath();
+                ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'yellow';
+                ctx.fill();
+                ctx.closePath();
+            });
+
+            // Gambar Karakter Pemain
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+            ctx.fillStyle = player.color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Gambar Semua Musuh beserta Bar HP-nya
+            drawEnemies();
+        }
+
+        function drawEnemies() {
+            enemies.forEach(enemy => {
+                // Lingkaran Tubuh Musuh
+                ctx.beginPath();
+                ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2);
+                ctx.fillStyle = enemy.color;
+                ctx.fill();
+                ctx.closePath();
+
+                // Hitung Posisi Bar HP tepat di atas kepala masing-masing musuh
+                let barWidth = 40;
+                let barHeight = 6;
+                let barX = enemy.x - barWidth / 2;
+                let barY = enemy.y - enemy.radius - 12;
+
+                // Latar Belakang Bar HP (Warna Abu-abu / Kosong)
+                ctx.fillStyle = 'gray';
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+
+                // Isi Bar HP Aktual (Warna Hijau Terang sesuai sisa nyawa)
+                let hpRatio = enemy.hp / enemy.maxHp;
+                ctx.fillStyle = 'lime';
+                ctx.fillRect(barX, barY, barWidth * hpRatio, barHeight);
+            });
+        }
+
+        // ==========================================
+        // 4. GAME LOOP UTAMA & MENJALANKAN GAME
+        // ==========================================
+        function gameLoop() {
+            update();
+            updateEnemies();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Jalankan game pertama kali
+        gameLoop();
+    </script>
+</body>
+</html>

@@ -1,48 +1,44 @@
-# 🛒 Aplikasi Kasir Digital Minimarket
+# 🛒 Aplikasi Kasir Digital Minimarket (Toko IT)
 
-Aplikasi kasir pintar berbasis web yang dirancang khusus untuk membantu mengelola transaksi toko secara digital, aman, dan permanen. Proyek ini dibuat sebagai portofolio pengembang.
+Aplikasi manajemen kasir berbasis web sederhana yang dibangun menggunakan **Flask (Python)** dan **SQLite3**. Aplikasi ini mendukung fitur pengelolaan stok, kalkulasi diskon otomatis secara realtime di sisi klien, sistem keranjang belanja multi-item (*session-based*), serta pencetakan nota/resi pembayaran yang dapat langsung disimpan ke format PDF.
 
-### 🛠️ Teknologi yang Digunakan
-* **Backend:** Python 3 & Flask Framework
-* **Frontend:** HTML5, CSS3, JavaScript
-* **Database:** MySQL (MariaDB)
+## 📁 Struktur Dokumen Proyek
+```text
+kasir-python-pemula/
+│
+├── server.py
+├── requirements.txt
+├── .gitignore
+├── LICENSE
+└── templates/
+    ├── login.html
+    ├── kasir.html
+    └── nota.html
+```
 
----
+## 🔐 1. Fitur Utama & Keamanan
+* **Sistem Autentikasi**: Membatasi akses menu utama dengan data uji coba berikut:
+  * **Username**: `admin`
+  * **Password**: `rahasia`
+* **Inisialisasi Database Otomatis**: Membuat file database `toko_it.db` serta tabel `produk` dan `transaksi` secara otomatis jika belum ada saat aplikasi dinyalakan.
+* **Kalkulator Diskon Realtime**: Form persentase diskon terintegrasi JavaScript (`oninput`) untuk memotong nilai total tagihan di layar kasir secara langsung tanpa muat ulang halaman.
+* **Cetak Nota & Simpan PDF**: Tombol *Bayar & Cetak Struk* akan mengunci data transaksi, mengurangi kuantitas stok di database, dan mengarahkan pengguna ke halaman `/nota` yang memicu jendela cetak browser (`window.print()`).
 
-### 💻 Cara Menjalankan Proyek Di Lokal
+## ⚙️ 2. Cara Instalasi & Menjalankan Aplikasi
 
-1. **Clone Repositori**
+### Langkah 1: Kloning Repositori
 ```bash
 git clone https://github.com
 cd kasir-python-pemula
 ```
 
-2. **Install Dependensi**
-Pastikan Flask dan MySQL Connector sudah terinstal di komputer Anda:
+### Langkah 2: Install Dependensi
 ```bash
-pip install flask mysql-connector-python
+pip install -r requirements.txt
 ```
 
-3. **Setup Database MySQL**
-Masuk ke database MySQL/MariaDB Anda, lalu buat database dan tabel dengan perintah SQL berikut:
-```sql
-CREATE DATABASE toko_it;
-USE toko_it;
-
-CREATE TABLE barang (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nama_barang VARCHAR(100) NOT NULL,
-    harga DECIMAL(10,2) NOT NULL,
-    stok INT NOT NULL
-);
-
-INSERT INTO barang (nama_barang, harga, stok) VALUES 
-('Mouse Logitech G Pro', 1200000, 10),
-('Keyboard Mechanical Rexus', 450000, 15),
-('Monitor ASUS 24 Inch', 1800000, 5);
-```
-
-4. **Jalankan Server Aplikasi**
+### Langkah 3: Jalankan Aplikasi
 ```bash
 python3 server.py
 ```
+Buka browser Anda dan akses tautan lokal: `http://127.0.0`

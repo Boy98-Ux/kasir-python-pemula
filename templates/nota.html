@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Struk Pembayaran Toko IT</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; width: 320px; margin: 20px auto; padding: 10px; border: 1px solid #ccc; background: #fff; }
+        .text-center { text-align: center; }
+        .line { border-top: 1px dashed #000; margin: 10px 0; }
+        table { width: 100%; font-size: 14px; border-collapse: collapse; }
+        .text-right { text-align: right; }
+        .btn { background: #007bff; color: white; border: none; padding: 10px; width: 100%; margin-top: 15px; cursor: pointer; font-weight: bold; border-radius: 4px; }
+        .btn-back { background: #6c757d; color: white; text-decoration: none; display: block; text-align: center; padding: 10px; margin-top: 5px; border-radius: 4px; }
+        @media print { .no-print { display: none; } body { border: none; margin: 0; padding: 0; } }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <strong>TOKO IT COMPUTER</strong><br>
+        Nota Resi Pembayaran Kasir
+    </div>
+    <div class="line"></div>
+    <p style="font-size: 13px; margin: 5px 0;">
+        Nota: #{{ nota.nomor_nota }}<br>
+        Waktu: {{ nota.waktu }}
+    </p>
+    <div class="line"></div>
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align: left;">Nama Barang</th>
+                <th class="text-right">Qty</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- MENGGUNAKAN 'daftar_barang' AGAR TERHINDAR DARI ERROR INTERABLE -->
+            {% for item in nota['daftar_barang'] %}
+            <tr>
+                <td>{{ item.nama_produk }}<br><small>@Rp {{ item.harga }}</small></td>
+                <td class="text-right" style="vertical-align: top;">{{ item.qty }}</td>
+                <td class="text-right" style="vertical-align: top;">Rp {{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="line"></div>
+    <table>
+        <tr>
+            <td>Subtotal:</td>
+            <td class="text-right">Rp {{ subtotal }}</td>
+        </tr>
+        <tr>
+            <td>Diskon:</td>
+            <td class="text-right">{{ nota.diskon }}% (-Rp {{ potongan }})</td>
+        </tr>
+        <tr style="font-weight: bold;">
+            <td>TOTAL AKHIR:</td>
+            <td class="text-right">Rp {{ total }}</td>
+        </tr>
+    </table>
+    <div class="line"></div>
+    <div class="text-center" style="font-size: 12px; margin-top: 15px;">~~ Terima Kasih ~~</div>
+    
+    <div class="no-print">
+        <button class="btn" onclick="window.print()">Cetak / Simpan PDF</button>
+        <a href="/kasir" class="btn-back">Kembali ke Kasir</a>
+    </div>
+</body>
+</html>
